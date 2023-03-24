@@ -1,0 +1,42 @@
+name: Download Artifact and Create Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Download Artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: my-artifact-name
+          path: ./artifacts
+
+  create-release:
+    needs: download-artifact
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v1.0.0
+          release_name: Release v1.0.0
+          body: |
+            Changes in this release:
+            - Added new feature X
+            - Fixed issue #123
+          draft: false
+          prerelease: false
+      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: my-artifact-name
+          path: ./artifacts/*
