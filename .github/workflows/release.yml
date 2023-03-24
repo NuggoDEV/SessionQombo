@@ -13,13 +13,13 @@ jobs:
       - name: Download Qmod
         uses: actions/download-artifact@v1
         with:
-          name: SessionQombo.qmod
+          name: SessionQombo
           path: ./artifacts
       
       - name: Download SO
         uses: actions/download-artifact@v1
         with:
-          name: libSessionQombo.so
+          name: libSessionQombo
           path: ./artifacts
 
   create-release:
@@ -44,12 +44,12 @@ jobs:
       - name: Upload Qmod
         uses: actions/upload-artifact@v1
         with:
-          name: SessionQombo.qmod
+          name: SessionQombo
           path: ./artifacts/*
 
       - name: Upload SO
         uses: actions/upload-artifact@v1
         with:
-          name: libSessionQombo.so
+          name: libSessionQombo
           path: ./artifacts/*
       
