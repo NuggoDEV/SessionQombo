@@ -10,10 +10,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: Download Artifact
+      - name: Download Qmod
         uses: actions/download-artifact@v1
         with:
-          name: my-artifact-name
+          name: SessionQombo.qmod
+          path: ./artifacts
+      
+      - name: Download SO
+        uses: actions/download-artifact@v1
+        with:
+          name: libSessionQombo.so
           path: ./artifacts
 
   create-release:
@@ -35,8 +41,15 @@ jobs:
           draft: false
           prerelease: false
       
-      - name: Upload Artifact
+      - name: Upload Qmod
         uses: actions/upload-artifact@v1
         with:
-          name: my-artifact-name
+          name: SessionQombo.qmod
           path: ./artifacts/*
+
+      - name: Upload SO
+        uses: actions/upload-artifact@v1
+        with:
+          name: libSessionQombo.so
+          path: ./artifacts/*
+      
